@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSupportApp", "CinemaSupportApp\CinemaSupportApp.csproj", "{8C17E369-6C10-4C77-91E6-69379EE78891}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSupportApi", "CinemaSupportApp\CinemaSupportApi.csproj", "{8C17E369-6C10-4C77-91E6-69379EE78891}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSupportApp.Tests", "CinemaSupportApp.Tests\CinemaSupportApp.Tests.csproj", "{60636304-53C5-4BE7-B73D-ED39F593F1A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSupportApi.Tests", "CinemaSupportApp.Tests\CinemaSupportApi.Tests.csproj", "{60636304-53C5-4BE7-B73D-ED39F593F1A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
