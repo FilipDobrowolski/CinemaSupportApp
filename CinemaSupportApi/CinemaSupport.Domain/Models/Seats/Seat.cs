@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaSupport.Domain.Models.Tickets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,17 @@ namespace CinemaSupport.Domain.Models
     public class Seat
     {
         public Guid ID { get; set; }
+
+        public int Number { get; set; }
+
+        public bool State { get; set; }
+
+        public Guid ScreeningRoomID { get; set; }
+
+        public ICollection<SalesHistory> SalesHistory { get; set; }
+
+        public ICollection<Ticket> Tickets { get; set; }
+
 
     }
 }

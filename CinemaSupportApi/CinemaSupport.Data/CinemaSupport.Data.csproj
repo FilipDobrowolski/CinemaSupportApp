@@ -54,5 +54,11 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CinemaSupport.Domain\CinemaSupport.Domain.csproj">
+      <Project>{2641be2d-ac08-430a-9021-e924c1477737}</Project>
+      <Name>CinemaSupport.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

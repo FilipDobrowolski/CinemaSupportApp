@@ -47,8 +47,6 @@
     <Compile Include="Models\Actors\Worker.cs" />
     <Compile Include="Models\Cinemas\Cinema.cs" />
     <Compile Include="Models\Movies\Movie.cs" />
-    <Compile Include="Models\Roles\Role.cs" />
-    <Compile Include="Models\Roles\RoleType.cs" />
     <Compile Include="Models\Screenings\Screening.cs" />
     <Compile Include="Models\ScreeningRooms\ScreeningRoom.cs" />
     <Compile Include="Models\Seats\Seat.cs" />

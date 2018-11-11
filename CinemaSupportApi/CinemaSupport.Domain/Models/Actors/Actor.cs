@@ -9,5 +9,9 @@ namespace CinemaSupport.Domain.Models
     public abstract class Actor
     {
         public Guid ID { get; set; }
+
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
     }
 }

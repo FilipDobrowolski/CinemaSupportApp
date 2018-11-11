@@ -176,6 +176,20 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CinemaSupport.Data\CinemaSupport.Data.csproj">
+      <Project>{e7a03f77-baa4-4b60-a655-523794cdd293}</Project>
+      <Name>CinemaSupport.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CinemaSupport.Domain\CinemaSupport.Domain.csproj">
+      <Project>{2641be2d-ac08-430a-9021-e924c1477737}</Project>
+      <Name>CinemaSupport.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CinemaSupport.Processing\CinemaSupport.Processing.csproj">
+      <Project>{a24bc440-5c1f-4792-842d-f5a6e20f9375}</Project>
+      <Name>CinemaSupport.Processing</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
