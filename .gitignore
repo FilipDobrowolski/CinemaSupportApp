@@ -4,3 +4,9 @@
 /CinemaSupportApi/CinemaSupportApi.Tests/obj
 /CinemaSupportApi/packages
 /CinemaSupportApi/.vs
+/CinemaSupportApi/CinemaSupport.Data/obj
+/CinemaSupportApi/CinemaSupport.Data/bin
+/CinemaSupportApi/CinemaSupport.Domain/obj
+/CinemaSupportApi/CinemaSupport.Domain/bin
+/CinemaSupportApi/CinemaSupport.Processing/obj
+/CinemaSupportApi/CinemaSupport.Processing/bin
