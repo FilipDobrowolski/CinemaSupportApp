@@ -8,12 +8,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8C17E369-6C10-4C77-91E6-69379EE78891}</ProjectGuid>
+    <ProjectGuid>{9EDCB22B-F2DC-4C47-8D7E-7DBAD6EA21B2}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CinemaSupportApp</RootNamespace>
-    <AssemblyName>CinemaSupportApp</AssemblyName>
+    <RootNamespace>CinemaSupportApi</RootNamespace>
+    <AssemblyName>CinemaSupportApi</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -95,9 +95,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50118</DevelopmentServerPort>
+          <DevelopmentServerPort>52775</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50118/</IISUrl>
+          <IISUrl>http://localhost:52775/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

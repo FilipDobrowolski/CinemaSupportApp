@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{60636304-53C5-4BE7-B73D-ED39F593F1A7}</ProjectGuid>
+    <ProjectGuid>{BD15C9FD-11A8-4AD8-91C1-39A08276F65A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CinemaSupportApp.Tests</RootNamespace>
-    <AssemblyName>CinemaSupportApp.Tests</AssemblyName>
+    <RootNamespace>CinemaSupportApi.Tests</RootNamespace>
+    <AssemblyName>CinemaSupportApi.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -63,9 +63,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CinemaSupportApp\CinemaSupportApp.csproj">
-      <Project>{8C17E369-6C10-4C77-91E6-69379EE78891}</Project>
-      <Name>CinemaSupportApp</Name>
+    <ProjectReference Include="..\CinemaSupportApi\CinemaSupportApi.csproj">
+      <Project>{9EDCB22B-F2DC-4C47-8D7E-7DBAD6EA21B2}</Project>
+      <Name>CinemaSupportApi</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
