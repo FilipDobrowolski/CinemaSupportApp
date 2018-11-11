@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CinemaSupport.Domain
+namespace CinemaSupport.Domain.Models.Actors
 {
-    public class Class1
+    public class Worker : Actor
     {
+       
     }
 }
