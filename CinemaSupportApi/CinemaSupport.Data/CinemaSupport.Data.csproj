@@ -48,7 +48,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CinemaSupportContext.cs" />
+    <Compile Include="Interfaces\Repositories\IActorRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ICinemaRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IMovieRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IScreeningRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IScreeningRoomRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ISeatRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ITicketRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ActorRepository.cs" />
+    <Compile Include="Repositories\CinemaRepository.cs" />
+    <Compile Include="Repositories\MovieRepository.cs" />
+    <Compile Include="Repositories\ScreeningRepository.cs" />
+    <Compile Include="Repositories\ScreeningRoomRepository.cs" />
+    <Compile Include="Repositories\SeatRepository.cs" />
+    <Compile Include="Repositories\TicketRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -60,5 +74,6 @@
       <Name>CinemaSupport.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

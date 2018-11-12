@@ -105,10 +105,6 @@ namespace CinemaSupport.Data
             modelBuilder.Entity<Ticket>().ToTable("Tickets");
             #endregion
 
-            #region SalesHistories
-            modelBuilder.Entity<SalesHistory>().ToTable("SalesHistories");
-            #endregion
-
 
             base.OnModelCreating(modelBuilder);
         }

@@ -41,7 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Interfaces\Actors\IActorService.cs" />
+    <Compile Include="Interfaces\Cinemas\ICinemaService.cs" />
+    <Compile Include="Interfaces\Movies\IMovieService.cs" />
+    <Compile Include="Interfaces\ScreeningRooms\IScreenigRoomService.cs" />
+    <Compile Include="Interfaces\Screenings\IScreeningService.cs" />
+    <Compile Include="Interfaces\Seats\ISeatService.cs" />
+    <Compile Include="Interfaces\Tickets\ITicketService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Actors\ActorService.cs" />
+    <Compile Include="Services\Cinemas\CinemaService.cs" />
+    <Compile Include="Services\Movies\MovieService.cs" />
+    <Compile Include="Services\ScreeningRooms\ScreeningRoomService.cs" />
+    <Compile Include="Services\Screenings\ScreeningService.cs" />
+    <Compile Include="Services\Seats\SeatService.cs" />
+    <Compile Include="Services\Tickets\TicketService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CinemaSupport.Data\CinemaSupport.Data.csproj">
@@ -53,5 +67,6 @@
       <Name>CinemaSupport.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
