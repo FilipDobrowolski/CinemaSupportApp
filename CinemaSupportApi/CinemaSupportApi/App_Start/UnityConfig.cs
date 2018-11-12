@@ -1,3 +1,5 @@
+using CinemaSupport.Data;
+using CinemaSupport.Processing;
 using System;
 
 using Unity;
@@ -42,6 +44,10 @@ namespace CinemaSupportApi
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
+
+            DataFacility.Register(container);
+            ProcessingFacility.Register(container);
+
         }
 
         public static IUnityContainer GetConfiguredContainer()

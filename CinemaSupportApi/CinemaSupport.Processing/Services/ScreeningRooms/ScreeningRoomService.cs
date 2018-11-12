@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CinemaSupport.Processing.Services.ScreeningRooms
 {
-    public class ScreeningRoomService : IScreenigRoomService
+    public class ScreeningRoomService : IScreeningRoomService
     {
         private readonly IScreeningRoomRepository _screeningRepository;
 

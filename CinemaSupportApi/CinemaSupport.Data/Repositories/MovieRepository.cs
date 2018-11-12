@@ -9,5 +9,11 @@ namespace CinemaSupport.Data.Repositories
 {
     public class MovieRepository : IMovieRepository
     {
+        private readonly CinemaSupportContext _context;
+
+        public MovieRepository(CinemaSupportContext context)
+        {
+            _context = context;
+        }
     }
 }

@@ -9,5 +9,11 @@ namespace CinemaSupport.Data.Repositories
 {
     public class ActorRepository : IActorRepository
     {
+        private readonly CinemaSupportContext _context;
+
+        public ActorRepository(CinemaSupportContext context)
+        {
+            _context = context;
+        }
     }
 }

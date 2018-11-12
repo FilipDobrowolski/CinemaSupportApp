@@ -9,5 +9,11 @@ namespace CinemaSupport.Data.Repositories
 {
     public class SeatRepository : ISeatRepository
     {
+        private readonly CinemaSupportContext _context;
+
+        public SeatRepository(CinemaSupportContext context)
+        {
+            _context = context;
+        }
     }
 }

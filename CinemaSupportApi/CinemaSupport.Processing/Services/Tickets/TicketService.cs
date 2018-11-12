@@ -16,5 +16,5 @@ namespace CinemaSupport.Processing.Services.Tickets
         {
             _ticketRepository = ticketRepository;
         }
-    }
+    }    
 }

@@ -11,9 +11,9 @@ namespace CinemaSupportApi.Controllers
 {
     public class ScreeningRoomController : ApiController
     {
-        private readonly IScreenigRoomService _screeningRoomService;
+        private readonly IScreeningRoomService _screeningRoomService;
 
-        public ScreeningRoomController(IScreenigRoomService screeningRoomService)
+        public ScreeningRoomController(IScreeningRoomService screeningRoomService)
         {
             _screeningRoomService = screeningRoomService;
         }

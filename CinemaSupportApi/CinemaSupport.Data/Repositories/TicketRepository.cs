@@ -9,5 +9,11 @@ namespace CinemaSupport.Data.Repositories
 {
     public class TicketRepository : ITicketRepository
     {
+        private readonly CinemaSupportContext _context;
+
+        public TicketRepository(CinemaSupportContext context)
+        {
+            _context = context;
+        }
     }
 }
