@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaSupport.Processing.Interfaces.Seats
 {
-    interface ISeatService
+    public interface ISeatService
     {
     }
 }

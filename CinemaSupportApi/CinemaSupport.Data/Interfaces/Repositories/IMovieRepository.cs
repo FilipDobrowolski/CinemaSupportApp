@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaSupport.Data.Interfaces.Repositories
 {
-    interface IMovieRepository
+    public interface IMovieRepository
     {
     }
 }

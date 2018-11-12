@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaSupport.Processing.Interfaces.Actors
 {
-    interface IActorService
+    public interface IActorService
     {
     }
 }

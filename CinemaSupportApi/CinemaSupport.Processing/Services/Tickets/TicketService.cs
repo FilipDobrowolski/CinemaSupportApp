@@ -1,4 +1,5 @@
-﻿using CinemaSupport.Processing.Interfaces.Tickets;
+﻿using CinemaSupport.Data.Interfaces.Repositories;
+using CinemaSupport.Processing.Interfaces.Tickets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,11 @@ namespace CinemaSupport.Processing.Services.Tickets
 {
     public class TicketService : ITicketService
     {
+        private readonly ITicketRepository _ticketRepository;
+
+        public TicketService(ITicketRepository ticketRepository)
+        {
+            _ticketRepository = ticketRepository;
+        }
     }
 }

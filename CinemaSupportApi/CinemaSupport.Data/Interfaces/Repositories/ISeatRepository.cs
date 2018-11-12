@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaSupport.Data.Interfaces.Repositories
 {
-    interface ISeatRepository
+    public interface ISeatRepository
     {
     }
 }

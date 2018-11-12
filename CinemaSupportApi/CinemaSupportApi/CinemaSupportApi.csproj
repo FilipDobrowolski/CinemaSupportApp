@@ -161,6 +161,13 @@
   <ItemGroup>
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
+    <Compile Include="Controllers\ActorController.cs" />
+    <Compile Include="Controllers\CinemaController.cs" />
+    <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\ScreeningController.cs" />
+    <Compile Include="Controllers\ScreeningRoomController.cs" />
+    <Compile Include="Controllers\SeatController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -173,9 +180,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\CinemaSupport.Data\CinemaSupport.Data.csproj">
       <Project>{e7a03f77-baa4-4b60-a655-523794cdd293}</Project>

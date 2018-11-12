@@ -1,4 +1,5 @@
-﻿using CinemaSupport.Processing.Interfaces.ScreeningRooms;
+﻿using CinemaSupport.Data.Interfaces.Repositories;
+using CinemaSupport.Processing.Interfaces.ScreeningRooms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,11 @@ namespace CinemaSupport.Processing.Services.ScreeningRooms
 {
     public class ScreeningRoomService : IScreenigRoomService
     {
+        private readonly IScreeningRoomRepository _screeningRepository;
+
+        public ScreeningRoomService(IScreeningRoomRepository screeningRepository)
+        {
+            _screeningRepository = screeningRepository;
+        }
     }
 }

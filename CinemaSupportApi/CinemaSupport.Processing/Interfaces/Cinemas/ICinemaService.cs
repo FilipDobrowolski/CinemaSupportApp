@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaSupport.Processing.Interfaces.Cinemas
 {
-    interface ICinemaService
+    public interface ICinemaService
     {
     }
 }

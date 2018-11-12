@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaSupport.Processing.Interfaces.Tickets
 {
-    interface ITicketService
+    public interface ITicketService
     {
     }
 }

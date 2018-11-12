@@ -1,4 +1,5 @@
-﻿using CinemaSupport.Processing.Interfaces.Seats;
+﻿using CinemaSupport.Data.Interfaces.Repositories;
+using CinemaSupport.Processing.Interfaces.Seats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,11 @@ namespace CinemaSupport.Processing.Services.Seats
 {
     public class SeatService : ISeatService
     {
+        private readonly ISeatRepository _seatRepository;
+
+        public SeatService(ISeatRepository seatRepository)
+        {
+            _seatRepository = seatRepository;
+        }
     }
 }
