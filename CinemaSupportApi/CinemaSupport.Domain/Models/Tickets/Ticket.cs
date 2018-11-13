@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CinemaSupport.Domain.Models.Actors;
 
 namespace CinemaSupport.Domain.Models.Tickets
 {
@@ -17,15 +18,12 @@ namespace CinemaSupport.Domain.Models.Tickets
 
         public Guid ScreeningID { get; set; }
 
-        public Guid CinemaID { get; set; }
-
-        public Guid ScreeningRoomID { get; set; }
-
-        public Guid SeatID { get; set; }
+        public Screening Screening { get; set; }
 
         public Guid ClientID { get; set; }
 
-        
+        public Client Client { get; set; }
+
 
     }
 }

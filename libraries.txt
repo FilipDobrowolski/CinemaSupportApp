@@ -1,2 +1,22 @@
 microsoft.aspnet.webapi.core
 microsoft.aspnet.webapi.owin
+
+
+#region migrations
+At the command prompt (PM>), type 
+'enable-migrations' and press Enter.
+
+add-migration InitialMigration
+
+update-database -verbose -startupprojectname Blip.Data
+
+The -verbose argument will display the full output of the command as it executes.
+
+Setting the -StartupProjectName 
+argument ensures that the command
+ takes effect on the correct project 
+if the startup project is another project,
+ like the web application 
+
+update-database -verbose -startupprojectname CinemaSupport.Data
+#endregion

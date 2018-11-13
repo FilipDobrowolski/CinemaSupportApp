@@ -4,6 +4,7 @@ using CinemaSupport.Domain.Models.Actors;
 using CinemaSupport.Domain.Models.Tickets;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -15,17 +16,16 @@ namespace CinemaSupport.Data
 
     public class CinemaSupportContext : DbContext
     {
-        public CinemaSupportContext() { }
+        public CinemaSupportContext() : base(ConfigurationManager.ConnectionStrings["CinemaSupportContext"].ConnectionString){ }
 
         public CinemaSupportContext(string connectionString) : base(connectionString) { }
+
 
         public DbSet<Actor> Actors { get; set; }
 
         public DbSet<Client> Clients { get; set; }
 
         public DbSet<Worker> Workers { get; set; }
-
-        public DbSet<Artist> Artists { get; set; }
 
         public DbSet<Cinema> Cinemas { get; set; }
 
@@ -39,7 +39,6 @@ namespace CinemaSupport.Data
 
         public DbSet<Ticket> Tickets { get; set; }
 
-        public DbSet<SalesHistory> SalesHistories { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -59,7 +58,7 @@ namespace CinemaSupport.Data
             #endregion
 
             #region Artists
-            modelBuilder.Entity<Artist>().ToTable("Artists");
+            //modelBuilder.Entity<Artist>().ToTable("Artists");
             #endregion
 
             #region Cinemas

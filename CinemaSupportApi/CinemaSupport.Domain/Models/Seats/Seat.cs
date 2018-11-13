@@ -17,7 +17,7 @@ namespace CinemaSupport.Domain.Models
 
         public Guid ScreeningRoomID { get; set; }
 
-        public ICollection<SalesHistory> SalesHistory { get; set; }
+        public ScreeningRoom ScreeningRoom { get; set; }
 
         public ICollection<Ticket> Tickets { get; set; }
 
