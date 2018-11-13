@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity;
+using Unity.Injection;
 using Unity.Lifetime;
 
 namespace CinemaSupport.Data
@@ -14,6 +15,8 @@ namespace CinemaSupport.Data
     {
         public static void Register(IUnityContainer container)
         {
+            container.RegisterType<CinemaSupportContext>(new HierarchicalLifetimeManager(),
+                new InjectionFactory(unity => new CinemaSupportContext()));
             container.RegisterType<IActorRepository, ActorRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<ICinemaRepository, CinemaRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IMovieRepository, MovieRepository>(new HierarchicalLifetimeManager());

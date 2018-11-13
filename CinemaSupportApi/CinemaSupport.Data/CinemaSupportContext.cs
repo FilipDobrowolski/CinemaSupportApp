@@ -11,9 +11,13 @@ using System.Threading.Tasks;
 
 namespace CinemaSupport.Data
 {
+    [DbConfigurationType(typeof(CinemaSupportDbConfig))]
+
     public class CinemaSupportContext : DbContext
     {
         public CinemaSupportContext() { }
+
+        public CinemaSupportContext(string connectionString) : base(connectionString) { }
 
         public DbSet<Actor> Actors { get; set; }
 
@@ -76,28 +80,28 @@ namespace CinemaSupport.Data
             #region ScreeningRooms
             modelBuilder.Entity<ScreeningRoom>().ToTable("ScreeningRooms");
 
-            modelBuilder.Entity<ScreeningRoom>()
-                .HasMany(sc => sc.Seats)
-                .WithRequired()
-                .HasForeignKey(s => s.ScreeningRoomID);
+            //modelBuilder.Entity<ScreeningRoom>()
+            //    .HasMany(sc => sc.Seats)
+            //    .WithRequired()
+            //    .HasForeignKey(s => s.ScreeningRoomID);
             #endregion
 
             #region Screenings
             modelBuilder.Entity<Screening>().ToTable("Screenings");
 
-            modelBuilder.Entity<Screening>()
-                .HasMany(s => s.Tickets)
-                .WithOptional()
-                .HasForeignKey(t => t.ScreeningID);
+            //modelBuilder.Entity<Screening>()
+            //    .HasMany(s => s.Tickets)
+            //    .WithOptional()
+            //    .HasForeignKey(t => t.ScreeningID);
             #endregion
             
             #region Seats
             modelBuilder.Entity<Seat>().ToTable("Seats");
 
-            modelBuilder.Entity<Seat>()
-                .HasMany(s => s.Tickets)
-                .WithOptional()
-                .HasForeignKey(t => t.SeatID);
+            //modelBuilder.Entity<Seat>()
+            //    .HasMany(s => s.Tickets)
+            //    .WithOptional()
+            //    .HasForeignKey(t => t.SeatID);
 
             #endregion
 

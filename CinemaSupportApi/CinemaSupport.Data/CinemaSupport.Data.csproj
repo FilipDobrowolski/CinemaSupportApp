@@ -97,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CinemaSupportDbConfig.cs" />
     <Compile Include="CinemaSupportContext.cs" />
     <Compile Include="DataFacility.cs" />
     <Compile Include="Interfaces\Repositories\IActorRepository.cs" />
