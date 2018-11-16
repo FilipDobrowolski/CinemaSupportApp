@@ -9,12 +9,13 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CinemaSupport.Data
 {
     [DbConfigurationType(typeof(CinemaSupportDbConfig))]
 
-    public class CinemaSupportContext : DbContext
+    public class CinemaSupportContext : IdentityDbContext<Actor>
     {
         public CinemaSupportContext() : base(ConfigurationManager.ConnectionStrings["CinemaSupportContext"].ConnectionString){ }
 
