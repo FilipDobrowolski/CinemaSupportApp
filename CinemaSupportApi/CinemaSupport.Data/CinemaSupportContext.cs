@@ -22,12 +22,6 @@ namespace CinemaSupport.Data
         public CinemaSupportContext(string connectionString) : base(connectionString) { }
 
 
-        public DbSet<Actor> Actors { get; set; }
-
-        public DbSet<Client> Clients { get; set; }
-
-        public DbSet<Worker> Workers { get; set; }
-
         public DbSet<Cinema> Cinemas { get; set; }
 
         public DbSet<Movie> Movies { get; set; }
@@ -44,19 +38,7 @@ namespace CinemaSupport.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //initializer todo
-            Database.SetInitializer<CinemaSupportContext>(new DropCreateDatabaseIfModelChanges<CinemaSupportContext>());
-
-            #region Actors
-            modelBuilder.Entity<Actor>().ToTable("Actors");
-            #endregion
-
-            #region Clients
-            modelBuilder.Entity<Client>().ToTable("Clients");
-            #endregion
-
-            #region Workers
-            modelBuilder.Entity<Worker>().ToTable("Workers");
-            #endregion
+            Database.SetInitializer<CinemaSupportContext>(new DropCreateDatabaseAlways<CinemaSupportContext>());
 
             #region Artists
             //modelBuilder.Entity<Artist>().ToTable("Artists");

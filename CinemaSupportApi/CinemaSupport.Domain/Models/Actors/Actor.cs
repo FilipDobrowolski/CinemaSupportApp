@@ -12,8 +12,6 @@ namespace CinemaSupport.Domain.Models
 {
     public class Actor : IdentityUser
     {
-        public Guid ID { get; set; }
-
         public string Name { get; set; }
 
         public string Surname { get; set; }

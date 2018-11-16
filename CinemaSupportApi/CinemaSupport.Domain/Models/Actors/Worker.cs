@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity;
 
 namespace CinemaSupport.Domain.Models.Actors
 {
-    public class Worker : Actor
+    public class Worker 
     {
         public new ActorRoles Role
         {

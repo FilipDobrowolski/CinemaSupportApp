@@ -88,6 +88,7 @@
     <Compile Include="Models\Tickets\Ticket.cs" />
     <Compile Include="Models\Tickets\TicketType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisteringModels\UserRegisterModel.cs" />
     <Compile Include="SalesHistory.cs" />
   </ItemGroup>
   <ItemGroup>

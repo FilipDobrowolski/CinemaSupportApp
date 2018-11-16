@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 
 namespace CinemaSupport.Domain.Models.Actors
 {
-    public class Client : Actor
+    public class Client
     {
         public ICollection<Ticket> Tickets;
 
