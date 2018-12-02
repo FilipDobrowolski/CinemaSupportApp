@@ -139,10 +139,15 @@
     <Compile Include="Migrations\201811161203543_AuthorizationModel.Designer.cs">
       <DependentUpon>201811161203543_AuthorizationModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811190105504_TicketRefactor.cs" />
+    <Compile Include="Migrations\201811190105504_TicketRefactor.Designer.cs">
+      <DependentUpon>201811190105504_TicketRefactor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ActorRepository.cs" />
     <Compile Include="Repositories\CinemaRepository.cs" />
+    <Compile Include="Repositories\CustomUserStore.cs" />
     <Compile Include="Repositories\MovieRepository.cs" />
     <Compile Include="Repositories\ScreeningRepository.cs" />
     <Compile Include="Repositories\ScreeningRoomRepository.cs" />
@@ -165,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811161203543_AuthorizationModel.resx">
       <DependentUpon>201811161203543_AuthorizationModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811190105504_TicketRefactor.resx">
+      <DependentUpon>201811190105504_TicketRefactor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

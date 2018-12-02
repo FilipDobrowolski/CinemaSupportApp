@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -30,10 +31,11 @@ namespace CinemaSupportApi
             //ConfigureAuth(app);
             var container = UnityConfig.GetConfiguredContainer();
 
+            ConfigureAuth(ref app, container);
+            
             ConfigureWebApi(app, container);
-            ConfigureAuth(app, container);
         }
-
+        #region WebApi
         private void ConfigureWebApi(IAppBuilder app, IUnityContainer container)
         {
             var config = new HttpConfiguration()
@@ -68,20 +70,36 @@ namespace CinemaSupportApi
 
 
         }
+        #endregion
 
+        #region Owin
+        internal static IDataProtectionProvider DataProtectionProvider { get; private set; }
 
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
         public static string PublicClientId { get; private set; }
 
 
-        public void ConfigureAuth(IAppBuilder app, IUnityContainer container)
+        public void ConfigureAuth(ref IAppBuilder app, IUnityContainer container)
         {
+            DataProtectionProvider = app.GetDataProtectionProvider();
+
+            PublicClientId = "web";
+
+            OAuthOptions = new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/Token"),
+                AuthorizeEndpointPath = new PathString("/Account/Authorize"),
+                Provider = new ApplicationOAuthProvider(PublicClientId),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AllowInsecureHttp = true
+            };
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(() => container.Resolve<CinemaSupportContext>());
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext(() => container.Resolve<ApplicationUserManager>());
 
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
             // Enable the application to use a cookie to store information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -128,8 +146,9 @@ namespace CinemaSupportApi
             //    ClientId = "",
             //    ClientSecret = ""
             //});
-        }
 
+        }
+        #endregion
 
 
     }
