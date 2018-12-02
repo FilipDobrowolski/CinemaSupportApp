@@ -20,10 +20,6 @@ namespace CinemaSupport.Domain.Models.Tickets
 
         public Screening Screening { get; set; }
 
-        public Guid ClientID { get; set; }
-
-        public Client Client { get; set; }
-
 
     }
 }

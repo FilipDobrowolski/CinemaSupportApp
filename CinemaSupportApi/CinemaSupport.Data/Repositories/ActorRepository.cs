@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CinemaSupport.Domain.Models;
 using CinemaSupport.Domain.RegisteringModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -14,24 +15,23 @@ namespace CinemaSupport.Data.Repositories
     {
         private readonly CinemaSupportContext _context;
 
-        private readonly UserManager<IdentityUser> _userManager;
+        private UserManager<Actor> _userManager;
 
 
         public ActorRepository(CinemaSupportContext context)
         {
-            _context = context;
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(context));
+            _context = context; //CinemaSupportContext.Create();
         }
 
-        public async Task<IdentityResult> RegisterUser(UserRegisterModel userModel)
+        public async Task<IdentityResult> RegisterUser(UserRegisterModel userModel, UserManager<Actor> userManager)
         {
-            IdentityUser user = new IdentityUser
+            Actor user = new Actor()
             {
                 UserName = userModel.UserName
             };
 
-            var result = await _userManager.CreateAsync(user, userModel.Password);
-
+            var result = await userManager.CreateAsync(user, userModel.Password);
+            _context.SaveChanges();
             return result;
         }
 

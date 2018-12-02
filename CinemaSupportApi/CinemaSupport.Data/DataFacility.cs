@@ -15,15 +15,16 @@ namespace CinemaSupport.Data
     {
         public static void Register(IUnityContainer container)
         {
-            container.RegisterType<CinemaSupportContext>(new HierarchicalLifetimeManager(),
+            container.RegisterType<CinemaSupportContext>(new TransientLifetimeManager(),
                 new InjectionFactory(unity => new CinemaSupportContext()));
-            container.RegisterType<IActorRepository, ActorRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IActorRepository, ActorRepository>(new TransientLifetimeManager());
             container.RegisterType<ICinemaRepository, CinemaRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IMovieRepository, MovieRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IScreeningRepository, ScreeningRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<IScreeningRoomRepository, ScreeningRoomRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<ISeatRepository, SeatRepository>(new HierarchicalLifetimeManager());
             container.RegisterType<ITicketRepository, TicketRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<CustomUserStore>(new HierarchicalLifetimeManager());
         }
     }
 }

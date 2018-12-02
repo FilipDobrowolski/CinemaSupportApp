@@ -94,5 +94,11 @@ namespace CinemaSupport.Data
 
             base.OnModelCreating(modelBuilder);
         }
+
+        public static CinemaSupportContext Create()
+        {
+            return new CinemaSupportContext(ConfigurationManager.ConnectionStrings["CinemaSupportContext"]
+                .ConnectionString);
+        }
     }
 }

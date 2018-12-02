@@ -1,8 +1,19 @@
 using CinemaSupport.Data;
 using CinemaSupport.Processing;
+using CinemaSupportApi.Authentication;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System;
-
+using System.Web;
+using CinemaSupport.Domain.Models;
 using Unity;
+using Unity.Injection;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Unity.Lifetime;
+using CinemaSupportApi.Controllers;
+using CinemaSupport.Data.Interfaces.Repositories;
+using System.Data.Entity;
+using CinemaSupport.Data.Repositories;
 
 namespace CinemaSupportApi
 {
@@ -44,8 +55,19 @@ namespace CinemaSupportApi
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-
             DataFacility.Register(container);
+            container.RegisterType<DbContext, CinemaSupportContext>(new TransientLifetimeManager());
+            container.RegisterType<IUserStore<Actor>, UserStore<Actor>>(new TransientLifetimeManager());
+            container.RegisterType<ApplicationUserManager>(new TransientLifetimeManager()); 
+            container.RegisterType<AccountController>(new TransientLifetimeManager(), new InjectionConstructor(typeof(IActorRepository), typeof(ApplicationUserManager)));
+
+            //container.RegisterType<IAuthenticationManager>(
+            //    new InjectionFactory(c => HttpContext.Current.GetOwinContext().Authentication));
+
+            //container.RegisterType<IUserStore<Actor>, UserStore<Actor>>(new HierarchicalLifetimeManager());
+            //container.RegisterType<ApplicationSignInManager>(new HierarchicalLifetimeManager());
+            //container.RegisterType<ApplicationUserManager>(new HierarchicalLifetimeManager());
+
             ProcessingFacility.Register(container);
 
         }

@@ -17,11 +17,52 @@ namespace CinemaSupportApi.Authentication
         public ApplicationUserManager(IUserStore<Actor> store)
             : base(store)
         {
+            this.UserValidator = new UserValidator<Actor>(this)
+            {
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = false
+            };
+
+            // Configure validation logic for passwords
+            this.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 6,
+                RequireNonLetterOrDigit = true,
+                RequireDigit = true,
+                RequireLowercase = true,
+                RequireUppercase = true,
+            };
+
+            // Configure user lockout defaults
+            this.UserLockoutEnabledByDefault = true;
+            this.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            this.MaxFailedAccessAttemptsBeforeLockout = 5;
+
+            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
+            // You can write your own provider and plug it in here.
+            //manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
+            //{
+            //    MessageFormat = "Your security code is {0}"
+            //});
+            //manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
+            //{
+            //    Subject = "Security Code",
+            //    BodyFormat = "Your security code is {0}"
+            //});
+            //manager.EmailService = new EmailService();
+            //manager.SmsService = new SmsService();
+            var dataProtectionProvider = Startup.DataProtectionProvider;
+            if (dataProtectionProvider != null)
+            {
+                this.UserTokenProvider =
+                    new DataProtectorTokenProvider<Actor>(dataProtectionProvider.Create("ASP.NET Identity"));
+            }
         }
+
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
             IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<Actor>(context.Get<CinemaSupportContext>()));
+        var manager = new ApplicationUserManager(new UserStore<Actor>(context.Get<CinemaSupportContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<Actor>(manager)
             {
