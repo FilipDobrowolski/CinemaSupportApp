@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSupport.Data", "Cinem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSupport.Processing", "CinemaSupport.Processing\CinemaSupport.Processing.csproj", "{A24BC440-5C1F-4792-842D-F5A6E20F9375}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaSupportWeb", "CinemaSupportWeb\CinemaSupportWeb.csproj", "{1F22A38C-74E4-4975-94D0-A2CE46611666}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{A24BC440-5C1F-4792-842D-F5A6E20F9375}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A24BC440-5C1F-4792-842D-F5A6E20F9375}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A24BC440-5C1F-4792-842D-F5A6E20F9375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F22A38C-74E4-4975-94D0-A2CE46611666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F22A38C-74E4-4975-94D0-A2CE46611666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F22A38C-74E4-4975-94D0-A2CE46611666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F22A38C-74E4-4975-94D0-A2CE46611666}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
