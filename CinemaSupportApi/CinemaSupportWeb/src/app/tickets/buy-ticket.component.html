@@ -1,1 +1,54 @@
-<div>buy-ticket</div>
+<h3>Calculate cost of ticket.</h3>
+<div>Cena Normalna: <input [(ngModel)] ="normal"/></div>
+<div>Nr rzedu od ekranu: <input [(ngModel)] ="numer"/></div>
+<p>
+  Cena: {{normal | ticketCost: numer}}
+</p>
+<h3>Order details.</h3>
+<form novalidate #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="form-group">
+        <label>
+          <span>Full name</span>
+          <input
+            type="text"
+            placeholder="Your full name"
+            name="name"
+            ngModel
+            #userName="ngModel"
+            minlength="2"
+            required>
+        </label>
+    </div>
+        <div *ngIf="userName.errors?.required && userName.touched" class="error">
+          Name is required
+         </div>
+         <div *ngIf="userName.errors?.minlength && userName.touched" class="error">
+          Minimum of 2 characters
+         </div>
+        <div class="form-group" ngModelGroup="account" #userAccount="ngModelGroup">
+          <label>
+            <span>Email address</span>
+            <input
+              type="email"
+              placeholder="Your email address"
+              name="email"
+              ngModel
+              #userEmail="ngModel"
+              required>
+          </label>
+          <label>
+            <span>Confirm address</span>
+            <input
+              type="email"
+              placeholder="Confirm your email address"
+              name="confirm"
+              ngModel
+              #userConfirm="ngModel"
+              required>
+          </label>
+          <div *ngIf="userAccount.invalid && userAccount.touched" class="error">
+            Both emails are required
+          </div>
+        </div>
+        <button type="submit" [disabled]="f.invalid">Sign up</button>
+      </form>

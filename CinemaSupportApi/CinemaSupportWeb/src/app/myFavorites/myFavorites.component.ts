@@ -9,15 +9,15 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class MyFavoritesComponent implements OnInit {
     
-    movies = [
-        'Episode I - The Phantom Menace',
-        'Episode II - Attack of the Clones',
-        'Episode III - Revenge of the Sith',
-        'Episode IV - A New Hope',
-        'Episode V - The Empire Strikes Back',
-        'Episode VI - Return of the Jedi',
-        'Episode VII - The Force Awakens',
-        'Episode VIII - The Last Jedi'
+    private movies: string[] = [
+        'Star Wars Episode I - The Phantom Menace',
+        'Star Wars Episode II - Attack of the Clones',
+        'Star Wars Episode III - Revenge of the Sith',
+        'Star Wars Episode IV - A New Hope',
+        'Star Wars Episode V - The Empire Strikes Back',
+        'Star Wars Episode VI - Return of the Jedi',
+        'Star Wars Episode VII - The Force Awakens',
+        'Star Wars Episode VIII - The Last Jedi'
       ];
 
     ngOnInit(): void {       
@@ -25,7 +25,7 @@ export class MyFavoritesComponent implements OnInit {
 
     constructor(private router: Router) {}
 
-    drop(event: CdkDragDrop<string[]>) {
+    private drop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
       }
 

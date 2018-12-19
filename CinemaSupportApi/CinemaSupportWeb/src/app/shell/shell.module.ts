@@ -9,12 +9,16 @@ import { MyFavoritesComponent } from '../myFavorites/myFavorites.component';
 import { BuyTicketComponent } from '../tickets/buy-ticket.component';
 import { PremiereComponent } from '../premiere/premiere.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { HighlightDirective } from '../common/highlight.directive';
+import { TicketCostPipe } from '../common/ticketCost.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
         CommonModule,
         DragDropModule,
-        RouterModule
+        RouterModule,
+        FormsModule
      ],
      declarations: [
         CurrentScreeningsComponent,
@@ -22,8 +26,11 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         BuyTicketComponent,
         PremiereComponent,
         HeaderComponent,
+        HighlightDirective,
+        TicketCostPipe,
         ShellComponent 
-     ]
+     ],
+     
 })
 export class ShellModule {
 

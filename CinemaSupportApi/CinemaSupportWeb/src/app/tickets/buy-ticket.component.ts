@@ -7,11 +7,31 @@ import { Router } from "@angular/router";
 })
 export class BuyTicketComponent implements OnInit {
 
+    public normal = 5;
+    public numer = 4;
+
     ngOnInit(): void {       
     }
 
     constructor(private router: Router) {}
 
-
+    user: User = {
+        name: '',
+        account: {
+          email: '',
+          confirm: ''
+        }
+      };
+      onSubmit({ value, valid }: { value: User, valid: boolean }) {
+        console.log(value, valid);
+      }
 
 }
+
+export interface User {
+    name: string;
+    account: {
+      email: string;
+      confirm: string;
+    }
+  }
