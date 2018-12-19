@@ -8,10 +8,12 @@ import { CurrentScreeningsComponent } from '../currentScreenings/currentScreenin
 import { MyFavoritesComponent } from '../myFavorites/myFavorites.component';
 import { BuyTicketComponent } from '../tickets/buy-ticket.component';
 import { PremiereComponent } from '../premiere/premiere.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     imports: [
         CommonModule,
+        DragDropModule,
         RouterModule
      ],
      declarations: [

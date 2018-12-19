@@ -11,8 +11,7 @@ export class MyFavoritesService {
 
     }
 
-    getData(){
-
+    getMyFavorites(){
     }
 
 }
