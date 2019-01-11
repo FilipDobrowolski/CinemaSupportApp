@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { HighlightDirective } from '../common/highlight.directive';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
     templateUrl: './currentScreenings.component.html',
@@ -8,11 +10,36 @@ import { HighlightDirective } from '../common/highlight.directive';
 })
 export class CurrentScreeningsComponent implements OnInit {
 
+    public apiUrl : string = 'http://localhost:52775/api';
+    moviesObservable : Observable<Movie[]>;
+    public apiUrlTwo: string = 'http://localhost:52775';
+
     ngOnInit(): void {       
     }
-    
-    constructor(private router: Router) {}
 
+    constructor(private router: Router,
+        private http: HttpClient) {}
 
+    public getMovies() {
 
+        let url = `${this.apiUrl}/movies`;
+        this.moviesObservable = this.http.get<Movie[]>(url);
+    }
+
+    OnSubmit(userName,password){
+        this.userService.userAuthentication(userName,password).subscribe((data : any)=>{
+         localStorage.setItem('userToken',data.access_token);
+         this.router.navigate(['/home']);
+       },
+       (err : HttpErrorResponse)=>{
+         this.isLoginError = true;
+       });
+     }
+
+}
+
+export class Movie {
+    id: string;
+    title: string;
+    duration: number
 }

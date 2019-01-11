@@ -38,7 +38,7 @@ namespace CinemaSupport.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //initializer todo
-            Database.SetInitializer<CinemaSupportContext>(new DropCreateDatabaseAlways<CinemaSupportContext>());
+            Database.SetInitializer<CinemaSupportContext>(new DropCreateDatabaseIfModelChanges<CinemaSupportContext>());
 
             #region Artists
             //modelBuilder.Entity<Artist>().ToTable("Artists");

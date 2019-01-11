@@ -35,6 +35,29 @@ namespace CinemaSupport.Data.Repositories
             return result;
         }
 
+        public bool Login(string userName, string password)
+        {
+            try
+            {
+
+                var userInfo = _context.Users.FirstOrDefault(x => x.UserName == userName);
+                if (userInfo != null)
+                {
+                    //string stringPwd = Encoding.ASCII.GetString(userInfo.PasswordHash);
+                    //return stringPwd == password;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public async Task<IdentityUser> FindUser(string userName, string password)
         {
             IdentityUser user = await _userManager.FindAsync(userName, password);

@@ -29,10 +29,9 @@ namespace CinemaSupportApi.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController(IActorRepository actorRepository, ApplicationUserManager userManager)
+        public AccountController(IActorRepository actorRepository)
         {
             _actorRepository = actorRepository;
-            _userManager = userManager;
         }
     
 
@@ -42,27 +41,45 @@ namespace CinemaSupportApi.Controllers
         [Route("register")]
         public async Task<IHttpActionResult> Register(UserRegisterModel userModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            //var t = HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            //var g = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            //var f = HttpContext.Current.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
-            //var z = HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
-            //var m = HttpContext.Current.Request;
-            //var x = HttpContext.Current.GetOwinContext().Request;
-            //var n = HttpContext.Current.Request.GetOwinContext().Get<UserManager<Actor>>();
-            //var d = HttpContext.Current.Request.GetOwinContext().Get<ApplicationUserManager>();
-            //var b = Request.GetOwinContext().Get<ApplicationUserManager>();
-            //var c = Request.GetOwinContext().GetUserManager<UserManager<Actor>>();
-            IdentityResult result = await _actorRepository.RegisterUser(userModel, _userManager );
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            ////var t = HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ////var g = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ////var f = HttpContext.Current.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
+            ////var z = HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
+            ////var m = HttpContext.Current.Request;
+            ////var x = HttpContext.Current.GetOwinContext().Request;
+            ////var n = HttpContext.Current.Request.GetOwinContext().Get<UserManager<Actor>>();
+            ////var d = HttpContext.Current.Request.GetOwinContext().Get<ApplicationUserManager>();
+            ////var b = Request.GetOwinContext().Get<ApplicationUserManager>();
+            ////var c = Request.GetOwinContext().GetUserManager<UserManager<Actor>>();
+            //IdentityResult result = await _actorRepository.RegisterUser(userModel, _userManager );
 
-            IHttpActionResult errorResult = GetErrorResult(result);
+            //IHttpActionResult errorResult = GetErrorResult(result);
 
-            if (errorResult != null)
+            //if (errorResult != null)
+            //{
+            //    return errorResult;
+            //}
+            if (ModelState.IsValid)
             {
-                return errorResult;
+                var user = new Actor() { UserName = userModel.UserName };
+                var result = await UserManager.CreateAsync(user, userModel.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return Redirect("https://www.codeproject.com/Articles/429166/Basics-of-Single-Sign-on-SSO");
+                }
+                AddErrors(result);
             }
 
             return Ok();
@@ -113,6 +130,7 @@ namespace CinemaSupportApi.Controllers
         {
             get
             {
+                var t = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
@@ -136,11 +154,19 @@ namespace CinemaSupportApi.Controllers
             return Ok();
         }
 
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public IHttpActionResult Login(string returnUrl)
+        {
+            return Ok();
+        }
+
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
+        [Route("login")]
         //[ValidateAntiForgeryToken]
-        public async Task<IHttpActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IHttpActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -149,7 +175,7 @@ namespace CinemaSupportApi.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.User, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -168,6 +194,7 @@ namespace CinemaSupportApi.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
+        [Route("logout")]
         public IHttpActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

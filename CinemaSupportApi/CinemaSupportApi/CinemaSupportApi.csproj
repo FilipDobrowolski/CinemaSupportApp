@@ -187,6 +187,7 @@
     <Compile Include="Authentication\ApplicationOAuthProvider.cs" />
     <Compile Include="Authentication\ApplicationSignInManager.cs" />
     <Compile Include="Authentication\ApplicationUserManager.cs" />
+    <Compile Include="Authentication\AuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActorController.cs" />
     <Compile Include="Controllers\CinemaController.cs" />

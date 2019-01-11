@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -10,6 +11,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Infrastructure;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 
@@ -50,40 +53,53 @@ namespace CinemaSupportApi.Authentication
 
             return Task.FromResult<object>(null);
         }
+    }
 
-        public override async Task ValidateClientAuthentication(
-        OAuthValidateClientAuthenticationContext context)
+    public class RefreshTokenProvider : IAuthenticationTokenProvider
+    {
+        private static ConcurrentDictionary<string, AuthenticationTicket> _refreshTokens =
+            new ConcurrentDictionary<string, AuthenticationTicket>();
+
+        public async Task CreateAsync(AuthenticationTokenCreateContext context)
         {
-            string clientId = "1234";
-            string clientSecret = "12345";
-            context.TryGetFormCredentials(out clientId, out clientSecret);
 
-            if (clientId == "1234" && clientSecret == "12345")
+            var guid = Guid.NewGuid().ToString();
+
+            // copy all properties and set the desired lifetime of refresh token  
+            var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
             {
-                context.Validated(clientId);
-            }
+                IssuedUtc = context.Ticket.Properties.IssuedUtc,
+                ExpiresUtc = DateTime.UtcNow.AddMinutes(60)
+            };
+
+            var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
+
+            _refreshTokens.TryAdd(guid, refreshTokenTicket);
+
+            // consider storing only the hash of the handle  
+            context.SetToken(guid);
         }
 
-        public override async Task GrantResourceOwnerCredentials(
-            OAuthGrantResourceOwnerCredentialsContext context)
+        public void Create(AuthenticationTokenCreateContext context)
         {
+            throw new NotImplementedException();
+        }
 
-            try
+        public void Receive(AuthenticationTokenReceiveContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
+        {
+            // context.DeserializeTicket(context.Token);
+            AuthenticationTicket ticket;
+            string header = context.OwinContext.Request.Headers["Authorization"];
+
+            if (_refreshTokens.TryRemove(context.Token, out ticket))
             {
-                // User is found. Signal this by calling context.Validated
-                //ClaimsIdentity identity = await UserManager.CreateIdentityAsync(
-                //    context.UserName,
-                //    DefaultAuthenticationTypes.ExternalBearer);
-
-                //context.Validated(identity);
+                context.SetTicket(ticket);
             }
-            catch
-            {
-                // The ClaimsIdentity could not be created by the UserManager.
-                context.SetError("server_error");
-                context.Rejected();
-            }
-
         }
     }
 }

@@ -25,5 +25,7 @@ namespace CinemaSupport.Domain.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string GetUserRole => "Admin";
     }
 }

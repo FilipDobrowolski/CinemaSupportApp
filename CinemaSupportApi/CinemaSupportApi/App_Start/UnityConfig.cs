@@ -59,7 +59,7 @@ namespace CinemaSupportApi
             container.RegisterType<DbContext, CinemaSupportContext>(new TransientLifetimeManager());
             container.RegisterType<IUserStore<Actor>, UserStore<Actor>>(new TransientLifetimeManager());
             container.RegisterType<ApplicationUserManager>(new TransientLifetimeManager()); 
-            container.RegisterType<AccountController>(new TransientLifetimeManager(), new InjectionConstructor(typeof(IActorRepository), typeof(ApplicationUserManager)));
+            container.RegisterType<AccountController>(new TransientLifetimeManager(), new InjectionConstructor(typeof(IActorRepository)));
 
             //container.RegisterType<IAuthenticationManager>(
             //    new InjectionFactory(c => HttpContext.Current.GetOwinContext().Authentication));

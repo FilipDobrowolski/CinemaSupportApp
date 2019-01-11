@@ -9,6 +9,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HighlightDirective } from './common/highlight.directive';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ShellModule,
     FormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule // must be imported as the last module as it contains the fallback route
   ],
   providers: [DragDropModule],

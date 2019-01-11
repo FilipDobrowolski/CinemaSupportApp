@@ -12,13 +12,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HighlightDirective } from '../common/highlight.directive';
 import { TicketCostPipe } from '../common/ticketCost.pipe';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     imports: [
         CommonModule,
         DragDropModule,
         RouterModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule
      ],
      declarations: [
         CurrentScreeningsComponent,
