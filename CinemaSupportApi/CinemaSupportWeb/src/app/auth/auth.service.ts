@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, subscribeOn } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class AuthService {
   errorData: {};
 
   isLoggedIn = false;
+  isRegistered = false;
 
   constructor(private http: HttpClient) { }
 
@@ -31,6 +32,22 @@ export class AuthService {
           this.isLoggedIn = true;
         }
       }),
+      catchError(this.handleError)
+    );
+  }
+
+  register(username: string, password: string, confirmpassword: string) {
+
+    return this.http.post<any>(`api/accounts/register`, {user: username, password: password, confirmpassword: confirmpassword} )
+    .pipe(map((res: Response) => {
+      this.isRegistered = true;
+      if (res) {
+        this.isRegistered = true;
+        if (res.status === 200) {
+          this.isRegistered = true;
+        }
+      }
+    }),
       catchError(this.handleError)
     );
   }
