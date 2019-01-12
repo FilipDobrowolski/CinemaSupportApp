@@ -5,6 +5,7 @@ import { PremiereComponent } from './premiere/premiere.component';
 import { CurrentScreeningsComponent } from './currentScreenings/currentScreenings.component';
 import { BuyTicketComponent } from './tickets/buy-ticket.component';
 import { MyFavoritesComponent } from './myFavorites/myFavorites.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 
@@ -13,6 +14,7 @@ const routes: Routes = [
   {
     path: '',
     component: ShellComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

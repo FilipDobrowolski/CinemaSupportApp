@@ -26,16 +26,6 @@ export class CurrentScreeningsComponent implements OnInit {
         this.moviesObservable = this.http.get<Movie[]>(url);
     }
 
-    OnSubmit(userName,password){
-        this.userService.userAuthentication(userName,password).subscribe((data : any)=>{
-         localStorage.setItem('userToken',data.access_token);
-         this.router.navigate(['/home']);
-       },
-       (err : HttpErrorResponse)=>{
-         this.isLoginError = true;
-       });
-     }
-
 }
 
 export class Movie {

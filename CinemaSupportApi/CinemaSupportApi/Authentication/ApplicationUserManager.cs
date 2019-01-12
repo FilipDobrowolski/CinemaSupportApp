@@ -19,8 +19,55 @@ namespace CinemaSupportApi.Authentication
             : base(store)
         {
         }
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
-            IOwinContext context)
+        //public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
+        //    IOwinContext context)
+        //{
+        //    var manager = new ApplicationUserManager(new UserStore<Actor>(context.Get<CinemaSupportContext>()));
+        //    // Configure validation logic for usernames
+        //    manager.UserValidator = new UserValidator<Actor>(manager)
+        //    {
+        //        AllowOnlyAlphanumericUserNames = false,
+        //        RequireUniqueEmail = true
+        //    };
+
+        //    // Configure validation logic for passwords
+        //    manager.PasswordValidator = new PasswordValidator
+        //    {
+        //        RequiredLength = 6,
+        //        RequireNonLetterOrDigit = true,
+        //        RequireDigit = true,
+        //        RequireLowercase = true,
+        //        RequireUppercase = true,
+        //    };
+
+        //    // Configure user lockout defaults
+        //    manager.UserLockoutEnabledByDefault = true;
+        //    manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        //    manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+
+        //    // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
+        //    // You can write your own provider and plug it in here.
+        //    manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<Actor>
+        //    {
+        //        MessageFormat = "Your security code is {0}"
+        //    });
+        //    manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<Actor>
+        //    {
+        //        Subject = "Security Code",
+        //        BodyFormat = "Your security code is {0}"
+        //    });
+        //   //anager.EmailService = new EmailService();
+        //   //anager.SmsService = new SmsService();
+        //    var dataProtectionProvider = options.DataProtectionProvider;
+        //    if (dataProtectionProvider != null)
+        //    {
+        //        manager.UserTokenProvider =
+        //            new DataProtectorTokenProvider<Actor>(dataProtectionProvider.Create("ASP.NET Identity"));
+        //    }
+        //    return manager;
+        //}
+
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<Actor>(context.Get<CinemaSupportContext>()));
             // Configure validation logic for usernames
@@ -29,7 +76,6 @@ namespace CinemaSupportApi.Authentication
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
-
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
@@ -39,30 +85,10 @@ namespace CinemaSupportApi.Authentication
                 RequireLowercase = true,
                 RequireUppercase = true,
             };
-
-            // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
-
-            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
-            // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<Actor>
-            {
-                MessageFormat = "Your security code is {0}"
-            });
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<Actor>
-            {
-                Subject = "Security Code",
-                BodyFormat = "Your security code is {0}"
-            });
-           //anager.EmailService = new EmailService();
-           //anager.SmsService = new SmsService();
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider =
-                    new DataProtectorTokenProvider<Actor>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider = new DataProtectorTokenProvider<Actor>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }

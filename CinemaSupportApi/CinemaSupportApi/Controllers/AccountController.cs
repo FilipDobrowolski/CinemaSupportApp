@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using CinemaSupport.Data.Interfaces.Repositories;
 using CinemaSupport.Data.Repositories;
 using CinemaSupport.Domain.Models;
@@ -18,6 +21,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin;
+using Newtonsoft.Json;
+using Microsoft.Owin.Security.Cookies;
+using System.Security.Cryptography;
 
 namespace CinemaSupportApi.Controllers
 {
@@ -25,64 +31,110 @@ namespace CinemaSupportApi.Controllers
     [RoutePrefix("accounts")]
     public class AccountController : ApiController
     {
-        private IActorRepository _actorRepository;
-        private ApplicationSignInManager _signInManager;
+        private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
-        public AccountController(IActorRepository actorRepository)
+        public AccountController()
         {
-            _actorRepository = actorRepository;
         }
-    
+
+        public AccountController(ApplicationUserManager userManager,
+            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        {
+            UserManager = userManager;
+            AccessTokenFormat = accessTokenFormat;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
+
+
+        // POST api/Account/Logout
+        [Route("logout")]
+        public IHttpActionResult Logout()
+        {
+            Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
+            return Ok();
+        }
+
+        [Route("login")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> Login(LoginModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            string responseBody = String.Empty;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:52775");
+                var request = new HttpRequestMessage(HttpMethod.Post, "/token");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+                request.Content = new StringContent($"grant_type=password&username={model.User}&password={model.Password}");
+
+                var response = await client.SendAsync(request);
+                responseBody = response.Content.ReadAsStringAsync().Result;
+
+            }
+
+            return Ok(JsonConvert.DeserializeObject<object>(responseBody));
+
+        }
 
         // POST api/Account/Register
         [AllowAnonymous]
-        [HttpPost]
         [Route("register")]
-        public async Task<IHttpActionResult> Register(UserRegisterModel userModel)
+        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-            ////var t = HttpContext.Current.Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            ////var g = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            ////var f = HttpContext.Current.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
-            ////var z = HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
-            ////var m = HttpContext.Current.Request;
-            ////var x = HttpContext.Current.GetOwinContext().Request;
-            ////var n = HttpContext.Current.Request.GetOwinContext().Get<UserManager<Actor>>();
-            ////var d = HttpContext.Current.Request.GetOwinContext().Get<ApplicationUserManager>();
-            ////var b = Request.GetOwinContext().Get<ApplicationUserManager>();
-            ////var c = Request.GetOwinContext().GetUserManager<UserManager<Actor>>();
-            //IdentityResult result = await _actorRepository.RegisterUser(userModel, _userManager );
-
-            //IHttpActionResult errorResult = GetErrorResult(result);
-
-            //if (errorResult != null)
-            //{
-            //    return errorResult;
-            //}
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = new Actor() { UserName = userModel.UserName };
-                var result = await UserManager.CreateAsync(user, userModel.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                return BadRequest(ModelState);
+            }
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            var user = new Actor() { UserName = model.User };
 
-                    return Redirect("https://www.codeproject.com/Articles/429166/Basics-of-Single-Sign-on-SSO");
-                }
-                AddErrors(result);
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
             }
 
             return Ok();
+        }
+
+       
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && _userManager != null)
+            {
+                _userManager.Dispose();
+                _userManager = null;
+            }
+
+            base.Dispose(disposing);
+        }
+
+        #region Helpers
+
+        private IAuthenticationManager Authentication
+        {
+            get { return Request.GetOwinContext().Authentication; }
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)
@@ -114,123 +166,106 @@ namespace CinemaSupportApi.Controllers
             return null;
         }
 
-        public ApplicationSignInManager SignInManager
+        private class ExternalLoginData
         {
-            get
-            {
-                return _signInManager ?? HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
+            public string LoginProvider { get; set; }
+            public string ProviderKey { get; set; }
+            public string UserName { get; set; }
 
-        public ApplicationUserManager UserManager
-        {
-            get
+            public IList<Claim> GetClaims()
             {
-                var t = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+                IList<Claim> claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, ProviderKey, null, LoginProvider));
 
+                if (UserName != null)
+                {
+                    claims.Add(new Claim(ClaimTypes.Name, UserName, null, LoginProvider));
+                }
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///
-        // The Authorize Action is the end point which gets called when you access any
-        // protected Web API. If the user is not logged in then they will be redirected to 
-        // the Login page. After a successful login you can call a Web API.
-        [HttpGet]
-        public IHttpActionResult Authorize()
-        {
-            var claims = new ClaimsPrincipal(User).Claims.ToArray();
-            var identity = new ClaimsIdentity(claims, "Bearer");
-            AuthenticationManager.SignIn(identity);
-            return Ok();
-        }
-
-        // GET: /Account/Login
-        [AllowAnonymous]
-        public IHttpActionResult Login(string returnUrl)
-        {
-            return Ok();
-        }
-
-        // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("login")]
-        //[ValidateAntiForgeryToken]
-        public async Task<IHttpActionResult> Login(LoginViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
+                return claims;
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.User, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            public static ExternalLoginData FromIdentity(ClaimsIdentity identity)
             {
-                case SignInStatus.Success:
-                    return Redirect("/");
-                case SignInStatus.LockedOut:
-                    return BadRequest();
-                case SignInStatus.RequiresVerification:
-                    return BadRequest();
-                case SignInStatus.Failure:
-                default:
-                    return BadRequest("Invalid login attempt.");
-                    
+                if (identity == null)
+                {
+                    return null;
+                }
+
+                Claim providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+
+                if (providerKeyClaim == null || String.IsNullOrEmpty(providerKeyClaim.Issuer)
+                    || String.IsNullOrEmpty(providerKeyClaim.Value))
+                {
+                    return null;
+                }
+
+                if (providerKeyClaim.Issuer == ClaimsIdentity.DefaultIssuer)
+                {
+                    return null;
+                }
+
+                return new ExternalLoginData
+                {
+                    LoginProvider = providerKeyClaim.Issuer,
+                    ProviderKey = providerKeyClaim.Value,
+                    UserName = identity.FindFirstValue(ClaimTypes.Name)
+                };
             }
         }
 
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
-        [Route("logout")]
-        public IHttpActionResult LogOff()
+        private static class RandomOAuthStateGenerator
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return Redirect("/");
-        }
+            private static RandomNumberGenerator _random = new RNGCryptoServiceProvider();
 
-        #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
+            public static string Generate(int strengthInBits)
             {
-                return HttpContext.Current.GetOwinContext().Authentication;
-            }
-        }
+                const int bitsPerByte = 8;
 
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
+                if (strengthInBits % bitsPerByte != 0)
+                {
+                    throw new ArgumentException("strengthInBits must be evenly divisible by 8.", "strengthInBits");
+                }
 
-        private IHttpActionResult RedirectToLocal(string returnUrl)
-        {
-            //if (Url.IsLocalUrl(returnUrl))
-            //{
-            //    return Redirect(returnUrl);
-            //}
-            //return RedirectToAction("Index", "Home");
-            return Redirect("/");
+                int strengthInBytes = strengthInBits / bitsPerByte;
+
+                byte[] data = new byte[strengthInBytes];
+                _random.GetBytes(data);
+                return HttpServerUtility.UrlTokenEncode(data);
+            }
         }
 
         #endregion
+    }
+
+    public class LoginModel
+    {
+        [Required]
+        [Display(Name = "User")]
+        public string User { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+    }
+
+    public class RegisterBindingModel
+    {
+        [Required]
+        [Display(Name = "User")]
+        public string User { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
     }
 }

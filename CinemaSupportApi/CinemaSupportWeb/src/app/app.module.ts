@@ -10,6 +10,10 @@ import { HighlightDirective } from './common/highlight.directive';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './http-interceptors/index';
+import { AuthRoutingModule } from './auth/auth-routing.module';
+import { AuthModule } from './auth/auth.module';
+
 
 
 @NgModule({
@@ -23,9 +27,10 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    AuthModule,
     AppRoutingModule // must be imported as the last module as it contains the fallback route
   ],
-  providers: [DragDropModule],
+  providers: [DragDropModule, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
