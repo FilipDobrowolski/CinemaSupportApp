@@ -202,11 +202,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActorController.cs" />
     <Compile Include="Controllers\CinemaController.cs" />
+    <Compile Include="Controllers\ExchangeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\ScreeningController.cs" />
     <Compile Include="Controllers\ScreeningRoomController.cs" />
     <Compile Include="Controllers\SeatController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="ExternalCurrencyClient\Currency.cs" />
+    <Compile Include="ExternalCurrencyClient\HttpClient.cs" />
+    <Compile Include="ExternalCurrencyClient\IHttpClient.cs" />
     <Compile Include="ViewModels\TicketIdModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

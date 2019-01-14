@@ -1,0 +1,10 @@
+{
+    "NAVBAR": {
+        "ScreeningRooms": "Screening Rooms",
+        "Screenings": "Screenings",
+        "MyTickets": "My Tickets",
+        "MyFavorites": "My Favorites",
+        "ExternalService": "Exchange service",
+        "Logout": "Logout"
+    }
+}

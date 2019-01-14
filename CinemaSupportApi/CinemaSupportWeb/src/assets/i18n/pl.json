@@ -1,0 +1,10 @@
+{
+    "NAVBAR": {
+        "ScreeningRooms": "Rozkład sal kinowych",
+        "Screenings": "Aktualny Repertuar",
+        "MyTickets": "Moje bilety",
+        "MyFavorites": "Moja lista ulubionych",
+        "ExternalService": "Serwis walut",
+        "Logout": "Wyloguj"
+    }
+}

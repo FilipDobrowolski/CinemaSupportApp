@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BuyTicketModal } from '../currentScreenings/buyTicketModal.component';
 import { DemoDropdownSplitComponent } from '../currentScreenings/demoDropdownSplitComponent';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { DemoDropdownSplitComponent } from '../currentScreenings/demoDropdownSpl
         DragDropModule,
         RouterModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        TranslateModule
      ],
      declarations: [
         CurrentScreeningsComponent,
