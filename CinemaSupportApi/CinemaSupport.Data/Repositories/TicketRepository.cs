@@ -38,5 +38,9 @@ namespace CinemaSupport.Data.Repositories
             return false;
         }
 
+        public bool AddTicket(Ticket ticket)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

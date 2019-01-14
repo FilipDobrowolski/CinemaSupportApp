@@ -1,12 +1,16 @@
 ﻿using CinemaSupport.Data.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
+using CinemaSupport.Domain.Models;
 
 namespace CinemaSupport.Data.Repositories
 {
+    [RoutePrefix("movies")]
     public class MovieRepository : IMovieRepository
     {
         private readonly CinemaSupportContext _context;
@@ -16,6 +20,11 @@ namespace CinemaSupport.Data.Repositories
             _context = context;
         }
 
+        [Route("all")]
+        public IQueryable<Movie> GetMoviesWithScreenings()
+        {
+            return _context.Movies.Include(m => m.Screenings);
+        }
 
     }
 }

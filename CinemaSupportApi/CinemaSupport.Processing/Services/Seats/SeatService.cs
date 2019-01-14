@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CinemaSupport.Domain.Models;
 
 namespace CinemaSupport.Processing.Services.Seats
 {
@@ -15,6 +16,13 @@ namespace CinemaSupport.Processing.Services.Seats
         public SeatService(ISeatRepository seatRepository)
         {
             _seatRepository = seatRepository;
+        }
+
+        public List<Seat> GetAllScreeningAvailableSeats(int screeningId, int screeningRoomId)
+        {
+            var seats = _seatRepository.GetAllScreeningAvailableSeats(screeningId, screeningRoomId).Cast<Seat>().ToList();
+
+            return seats;
         }
     }
 }

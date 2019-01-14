@@ -12,5 +12,8 @@ namespace CinemaSupport.Data.Interfaces.Repositories
         IQueryable<Ticket> GetAllActorTickets(string actorName);
 
         bool UpdateTicketValidation(int ticketId);
+
+        bool AddTicket(Ticket ticket);
+
     }
 }

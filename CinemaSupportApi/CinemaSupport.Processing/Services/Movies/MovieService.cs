@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CinemaSupport.Domain.Models;
 
 namespace CinemaSupport.Processing.Services.Movies
 {
@@ -15,6 +16,11 @@ namespace CinemaSupport.Processing.Services.Movies
         public MovieService(IMovieRepository movieRepository)
         {
             _movieRepository = movieRepository;
+        }
+
+        public IList<Movie> GetMoviesWithScreenings()
+        {
+            return _movieRepository.GetMoviesWithScreenings().Cast<Movie>().ToList();
         }
     }
 }

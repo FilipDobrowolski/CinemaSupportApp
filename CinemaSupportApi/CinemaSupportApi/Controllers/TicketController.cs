@@ -40,5 +40,18 @@ namespace CinemaSupportApi.Controllers
 
             return Ok();
         }
+
+        [Route("buyticket")]
+        [HttpPost]
+        public IHttpActionResult BuyTicket([FromBody] Ticket ticket)
+        {
+            var isBought = _ticketService.AddTicket(ticket);
+            if(!isBought)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace CinemaSupport.Processing.Interfaces.Tickets
     {
         List<Ticket> GetAllActorTickets(string actorName);
         bool UpdateTicketValidation(int ticketId);
+        bool AddTicket(Ticket ticket);
     }
 }

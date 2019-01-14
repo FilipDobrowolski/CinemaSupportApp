@@ -27,5 +27,10 @@ namespace CinemaSupport.Processing.Services.Tickets
         {
             return _ticketRepository.UpdateTicketValidation(ticketId);
         }
+
+        public bool AddTicket(Ticket ticket)
+        {
+            return _ticketRepository.AddTicket(ticket);
+        }
     }    
 }

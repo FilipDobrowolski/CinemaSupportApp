@@ -19,47 +19,11 @@ namespace CinemaSupportApi.Controllers
         {
             _movieService = movieService;
         }
-        [Authorization]
+        //[Authorization]
         [Route("")]
         public IHttpActionResult GetAllMovies()
         {
-            var availableMovies = new List<Movie>
-        {
-            new Movie()
-            {
-                MovieId = 1,
-               
-                Title = "Film1",
-                Duration = 60
-            },
-            new Movie()
-            {
-                MovieId = 1,
-
-                Title = "Film2",
-                Duration = 120
-            },
-            new Movie()
-            {
-                MovieId = 1,
-
-                Title = "Film3",
-                Duration = 180
-            },
-            new Movie()
-            {
-                MovieId = 1,
-
-                Title = "Film4",
-                Duration = 20
-            },
-            new Movie()
-            {
-                MovieId = 1,
-                Title = "Film5",
-                Duration = 10
-            },
-        };
+            var availableMovies = _movieService.GetMoviesWithScreenings();
             return Ok(availableMovies);
         }
     }
