@@ -43,9 +43,15 @@ namespace CinemaSupportApi.Controllers
 
         [Route("buyticket")]
         [HttpPost]
-        public IHttpActionResult BuyTicket([FromBody] Ticket ticket)
+        public IHttpActionResult BuyTicket([FromBody] TicketModel ticket)
         {
-            var isBought = _ticketService.AddTicket(ticket);
+            var newTicket = new Ticket()
+            {
+                TicketId = ticket.TicketId,
+                TicketType = ticket.TicketType,
+                Actor = ticket.ActorName
+            };
+            var isBought = _ticketService.AddTicket(newTicket);
             if(!isBought)
             {
                 return NotFound();
@@ -53,5 +59,12 @@ namespace CinemaSupportApi.Controllers
 
             return Ok();
         }
+    }
+
+    public class TicketModel
+    {
+        public int TicketId { get; set; }
+        public TicketType TicketType { get; set; }
+        public string ActorName { get; set; }
     }
 }

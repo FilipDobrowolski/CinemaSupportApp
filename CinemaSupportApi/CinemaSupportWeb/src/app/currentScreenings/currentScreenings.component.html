@@ -1,7 +1,4 @@
-<div class ="myCustomClass">
-    <p class="text-center up" [appHighlight]="color" defaultColor="violet"> AKTULANY REPERTUAR </p>
-</div>
-
+<h1 class="display-4 center">Aktualny Repertuar</h1>
 <div class ="container" *ngIf="moviesObservable | async as movies else empty">
 <div class = "row" *ngFor="let movie of movies">
     <div class="col">
@@ -23,7 +20,7 @@
                   Nr sali: {{screening.screeningRoomId}}          
                 </div>
                 <div class="media-body">
-                    <button class="btn">Kup bilet</button>
+                    <button class="btn" (click)="openModalView(screening.screeningId, screening.screeningRoomId)">Kup bilet</button>
                 </div>
               </li>
           </ul>

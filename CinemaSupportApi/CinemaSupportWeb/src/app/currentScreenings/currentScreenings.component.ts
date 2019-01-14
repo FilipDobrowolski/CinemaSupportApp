@@ -4,6 +4,10 @@ import { HighlightDirective } from '../common/highlight.directive';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BuyTicketComponent } from '../tickets/buy-ticket.component';
+import { BuyTicketModal } from './buyTicketModal.component';
 
 @Component({
     templateUrl: './currentScreenings.component.html',
@@ -14,18 +18,29 @@ export class CurrentScreeningsComponent implements OnInit {
     public apiUrl : string = 'http://localhost:52775/api';
     moviesObservable : Observable<Movie[]>;
     public apiUrlTwo: string = 'http://localhost:52775';
+    bsModalRef: BsModalRef;
 
     ngOnInit(): void {  
         this.getMovies();     
     }
 
     constructor(private router: Router,
-        private http: HttpClient) {}
+        private http: HttpClient,
+        private _modalService: BsModalService) {}
 
     public getMovies() {
 
         let url = `${this.apiUrl}/movies`;
         this.moviesObservable = this.http.get<Movie[]>(url);
+    }
+
+    public openModalView(screeningid, screeningRoomId): void {
+        const initialState = {
+            screeningId: screeningid,
+            screeningRoomId: screeningRoomId
+        }
+
+        this.bsModalRef = this._modalService.show(BuyTicketModal, { initialState })
     }
 
 }

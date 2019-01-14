@@ -1,9 +1,14 @@
-<h2 class="center2">Premiere</h2>
+<h1 class="display-4 center2">Rozkład sal kinowych</h1>
 <div>
-<img [@myAwesomeAnimation]='state' (click)="animateMe()" src="https://ocs-pl.oktawave.com/v1/AUTH_2887234e-384a-4873-8bc5-405211db13a2/splay/2018/02/hbo-go-najlepsze-filmy-1180x590.jpg" alt="Italian Trulli" class="center">>
+<nav aria-label="breadcrumb" *ngFor="let room of screeningRooms" (click)="ticketNumber()">
+    <ol class="breadcrumb">
+      SHIT 
+    </ol>
+  </nav>
 </div>
-
-<!-- As you can see, to attach an animation to an HTML element,
- you wrap brackets around the trigger name, preceded by an @. 
- You bind it to a template expression, which in this case is a 
- property that we will define in the component class. -->
+<ul class="list-group" *ngIf="screeningRoomsObservable | async as screeningRooms else empty">
+        <ul class="list-group-item list-group-item-primary" *ngFor="let room of screeningRooms">Nazwa sali: {{room.name}}<br> 
+            Piętro na którym znajduję się sala: {{room.floor}}
+        <li class="list-group-item list-group-item-light" *ngFor="let seat of room.seats">Miejsce numer: {{seat.seatId}}</li>
+        </ul>
+</ul>

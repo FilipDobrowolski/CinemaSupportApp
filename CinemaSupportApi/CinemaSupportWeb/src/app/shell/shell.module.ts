@@ -13,6 +13,8 @@ import { HighlightDirective } from '../common/highlight.directive';
 import { TicketCostPipe } from '../common/ticketCost.pipe';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BuyTicketModal } from '../currentScreenings/buyTicketModal.component';
+import { DemoDropdownSplitComponent } from '../currentScreenings/demoDropdownSplitComponent';
 
 @NgModule({
     imports: [
@@ -25,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
      declarations: [
         CurrentScreeningsComponent,
         MyFavoritesComponent,
+        BuyTicketModal,
+        DemoDropdownSplitComponent,
         BuyTicketComponent,
         PremiereComponent,
         HeaderComponent,
@@ -32,6 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
         TicketCostPipe,
         ShellComponent 
      ],
+     exports: [ BuyTicketModal ],
+     entryComponents: [ BuyTicketModal ],
      
 })
 export class ShellModule {

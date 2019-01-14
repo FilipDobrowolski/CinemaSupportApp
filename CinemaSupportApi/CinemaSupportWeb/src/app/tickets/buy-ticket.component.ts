@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     templateUrl: './buy-ticket.component.html',
@@ -7,31 +9,30 @@ import { Router } from "@angular/router";
 })
 export class BuyTicketComponent implements OnInit {
 
-    public normal = 5;
-    public numer = 4;
+  public apiUrl : string = 'http://localhost:52775/api';
+  ticketsObservable : Observable<Ticket[]>;
 
-    ngOnInit(): void {       
-    }
-
-    constructor(private router: Router) {}
-
-    user: User = {
-        name: '',
-        account: {
-          email: '',
-          confirm: ''
-        }
-      };
-      onSubmit({ value, valid }: { value: User, valid: boolean }) {
-        console.log(value, valid);
-      }
-
-}
-
-export interface User {
-    name: string;
-    account: {
-      email: string;
-      confirm: string;
-    }
+ 
+  constructor( private http: HttpClient) {}
+  
+  ngOnInit() {
+      this.getTickets();      
   }
+
+  public getTickets() {
+      let url = `${this.apiUrl}/tickets/getallbyactoruniquename?actorName=filip`;
+      this.ticketsObservable = this.http.get<Ticket[]>(url);
+  }
+
+  public validate() {
+    
+  }
+}
+export class Ticket {
+  ticketId: number;
+  price: number;
+  ticketType: number;
+  purchased: boolean;
+  validated: boolean;
+  screeningId: number;
+}

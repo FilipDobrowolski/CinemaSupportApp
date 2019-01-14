@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './http-interceptors/index';
 import { AuthRoutingModule } from './auth/auth-routing.module';
 import { AuthModule } from './auth/auth.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 
@@ -27,6 +29,8 @@ import { AuthModule } from './auth/auth.module';
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ModalModule.forRoot(),
+    BsDropdownModule.forRoot(),
     AuthModule,
     AppRoutingModule // must be imported as the last module as it contains the fallback route
   ],

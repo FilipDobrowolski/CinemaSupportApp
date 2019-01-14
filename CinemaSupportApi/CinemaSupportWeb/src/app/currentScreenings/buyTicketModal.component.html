@@ -1,0 +1,26 @@
+<div class="modal-header">
+        <h4 class="modal-title pull-left">Okno zakupu biletu</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+</div>
+<div class="modal-body">
+              Wybierz jedno aktualnie z wolnych miejsce:
+              <div class="list-unstyled" *ngIf="seatsObservable | async as seats else empty">
+              <button class="btn btn-light" *ngFor="let seat of seats" (click)="ticketNumber(seat.seatId)">Nr {{seat.seatId}}</button>
+              </div>
+              Wybierz typ biletu:
+              <div class="list-unstyled">
+                  <button class="btn btn-light" (click)="ticketType(0)">Ulgowy</button>
+                  <button class="btn btn-light" (click)="ticketType(1)">Normalny</button>
+              </div>
+              <div class="list-unstyled">
+                  Wybrano miejsce: {{this.currentTicketNumber}}
+              </div>
+
+  </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="submit()" [disabled]="isDisabled">Kup Bilet</button>
+        <button type="button" class="btn btn-danger" (click)="bsModalRef.hide()">Zamknij</button>
+      </div>
