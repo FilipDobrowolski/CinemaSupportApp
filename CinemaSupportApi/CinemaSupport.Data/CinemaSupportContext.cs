@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,11 +38,17 @@ namespace CinemaSupport.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
             //initializer todo
             Database.SetInitializer<CinemaSupportContext>(new DropCreateDatabaseIfModelChanges<CinemaSupportContext>());
-
-            #region Artists
+            modelBuilder.Conventions.Add<ManyToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Add<OneToManyCascadeDeleteConvention>();
+            #region Actors
             //modelBuilder.Entity<Artist>().ToTable("Artists");
+            //modelBuilder.Entity<Actor>()
+            //    .HasMany(a => a.Tickets)
+            //    .WithOptional()
+            //    .HasForeignKey(t => t.Id);
             #endregion
 
             #region Cinemas
@@ -51,39 +58,58 @@ namespace CinemaSupport.Data
             modelBuilder.Entity<Cinema>()
                 .HasMany(c => c.ScreeningRooms)
                 .WithRequired()
-                .HasForeignKey(sr => sr.CinemaID);
+                .HasForeignKey(sr => sr.CinemaId);
+               
 
             #endregion
 
             #region Movies
             modelBuilder.Entity<Movie>().ToTable("Movies");
+
+            modelBuilder.Entity<Movie>()
+                .HasMany(m => m.Screenings)
+                .WithRequired()
+                .HasForeignKey(sc => sc.MovieId);
+
+
             #endregion
 
             #region ScreeningRooms
             modelBuilder.Entity<ScreeningRoom>().ToTable("ScreeningRooms");
 
-            //modelBuilder.Entity<ScreeningRoom>()
-            //    .HasMany(sc => sc.Seats)
-            //    .WithRequired()
-            //    .HasForeignKey(s => s.ScreeningRoomID);
+            modelBuilder.Entity<ScreeningRoom>()
+                .HasMany(sc => sc.Seats)
+                .WithRequired()
+                .HasForeignKey(s => s.ScreeningRoomId)
+                .WillCascadeOnDelete(true); ;
+
+            modelBuilder.Entity<ScreeningRoom>()
+                .HasMany(sc => sc.Screenings)
+                .WithRequired()
+                .HasForeignKey(s => s.ScreeningRoomId)
+                .WillCascadeOnDelete(true); ;
+
+
             #endregion
 
             #region Screenings
             modelBuilder.Entity<Screening>().ToTable("Screenings");
 
-            //modelBuilder.Entity<Screening>()
-            //    .HasMany(s => s.Tickets)
-            //    .WithOptional()
-            //    .HasForeignKey(t => t.ScreeningID);
+            modelBuilder.Entity<Screening>()
+                .HasMany(s => s.Tickets)
+                .WithRequired()
+                .HasForeignKey(t => t.ScreeningId)
+                .WillCascadeOnDelete(true); ;
             #endregion
-            
+
             #region Seats
             modelBuilder.Entity<Seat>().ToTable("Seats");
 
-            //modelBuilder.Entity<Seat>()
-            //    .HasMany(s => s.Tickets)
-            //    .WithOptional()
-            //    .HasForeignKey(t => t.SeatID);
+            modelBuilder.Entity<Seat>()
+                .HasMany(s => s.Tickets)
+                .WithRequired()
+                .HasForeignKey(t => t.SeatId)
+                .WillCascadeOnDelete(true); ;
 
             #endregion
 

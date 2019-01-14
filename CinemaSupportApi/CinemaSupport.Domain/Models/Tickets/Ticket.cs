@@ -9,17 +9,28 @@ namespace CinemaSupport.Domain.Models.Tickets
 {
     public class Ticket
     {
-
-        public bool Reservation { get; set; }
+        public int TicketId { get; set; }
 
         public int Price { get; set; }
 
-        public Guid ID { get; set; }
+        public TicketType TicketType { get; set; }
 
-        public Guid ScreeningID { get; set; }
+        public bool Purchased { get; set; }
+
+        public bool Validated { get; set; }
+
+        public int ScreeningId { get; set; }
 
         public Screening Screening { get; set; }
 
+        public int SeatId { get; set; }
 
+        public Seat Seat { get; set; }
+
+        public string Actor { get; set; }
+
+        //public string Id { get; set; } 
+
+        //public Actor Actor { get; set; }
     }
 }

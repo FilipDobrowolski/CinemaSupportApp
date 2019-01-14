@@ -8,7 +8,7 @@ namespace CinemaSupport.Domain.Models
 {
     public class Cinema
     {
-        public Guid ID { get; set; }
+        public int CinemaId { get; set; }
 
         public string Name { get; set; }
 

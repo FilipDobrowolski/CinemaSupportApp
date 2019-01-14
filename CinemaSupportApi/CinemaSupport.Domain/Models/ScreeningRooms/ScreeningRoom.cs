@@ -8,14 +8,13 @@ namespace CinemaSupport.Domain.Models
 {
     public class ScreeningRoom
     {
-        public Guid ID { get; set; }
+        public int ScreeningRoomId { get; set; }
 
         public string Name { get; set; }
 
         public int Floor { get; set; }
 
-
-        public Guid CinemaID { get; set; }
+        public int CinemaId { get; set; }
 
         public Cinema Cinema { get; set; }
 

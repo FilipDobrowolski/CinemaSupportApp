@@ -8,5 +8,7 @@ namespace CinemaSupport.Domain.Models.Tickets
 {
     public enum TicketType
     {
+        Normal,
+        Reduced
     }
 }

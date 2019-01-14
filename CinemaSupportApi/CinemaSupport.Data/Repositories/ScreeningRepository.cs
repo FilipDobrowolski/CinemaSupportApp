@@ -1,4 +1,5 @@
 ﻿using CinemaSupport.Data.Interfaces.Repositories;
+using CinemaSupport.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,11 @@ namespace CinemaSupport.Data.Repositories
         public ScreeningRepository(CinemaSupportContext context)
         {
             _context = context;
+        }
+
+        public List<Screening> GetScreenings()
+        {
+            return _context.Screenings.Include("Tickets").ToList();
         }
     }
 }

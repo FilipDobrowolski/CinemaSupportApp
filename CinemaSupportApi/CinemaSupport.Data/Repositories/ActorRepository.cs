@@ -71,5 +71,7 @@ namespace CinemaSupport.Data.Repositories
             _userManager.Dispose();
 
         }
+
+
     }
 }

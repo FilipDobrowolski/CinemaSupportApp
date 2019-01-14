@@ -9,13 +9,13 @@ namespace CinemaSupport.Domain.Models
 {
     public class Seat
     {
-        public Guid ID { get; set; }
+        public int SeatId { get; set; }
 
         public int Number { get; set; }
 
         public bool State { get; set; }
 
-        public Guid ScreeningRoomID { get; set; }
+        public int ScreeningRoomId { get; set; }
 
         public ScreeningRoom ScreeningRoom { get; set; }
 

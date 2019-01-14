@@ -28,7 +28,9 @@ namespace CinemaSupport.Processing
         {
             container.RegisterType<IActorService, ActorService>(new HierarchicalLifetimeManager());
             container.RegisterType<ICinemaService, CinemaService>(new HierarchicalLifetimeManager());
+
             container.RegisterType<IMovieService, MovieService>(new HierarchicalLifetimeManager());
+
             container.RegisterType<IScreeningRoomService, ScreeningRoomService>(new HierarchicalLifetimeManager());
             container.RegisterType<IScreeningService, ScreeningService>(new HierarchicalLifetimeManager());
             container.RegisterType<ISeatService, SeatService>(new HierarchicalLifetimeManager());

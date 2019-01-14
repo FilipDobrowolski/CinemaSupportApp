@@ -15,5 +15,7 @@ namespace CinemaSupport.Data.Repositories
         {
             _context = context;
         }
+
+
     }
 }

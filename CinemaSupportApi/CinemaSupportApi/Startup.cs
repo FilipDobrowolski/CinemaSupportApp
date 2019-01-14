@@ -30,8 +30,6 @@ namespace CinemaSupportApi
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            //ConfigureAuth(app);
             var container = UnityConfig.GetConfiguredContainer();
 
             ConfigureAuth(ref app, container);

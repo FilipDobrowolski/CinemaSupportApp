@@ -27,36 +27,35 @@ namespace CinemaSupportApi.Controllers
         {
             new Movie()
             {
-                ID = Guid.NewGuid(),
-                Created = DateTime.Today.Date,
+                MovieId = 1,
+               
                 Title = "Film1",
                 Duration = 60
             },
             new Movie()
             {
-                ID = Guid.NewGuid(),
-                Created = DateTime.Today.Date,
+                MovieId = 1,
+
                 Title = "Film2",
                 Duration = 120
             },
             new Movie()
             {
-                ID = Guid.NewGuid(),
-                Created = DateTime.Today.Date,
+                MovieId = 1,
+
                 Title = "Film3",
                 Duration = 180
             },
             new Movie()
             {
-                ID = Guid.NewGuid(),
-                Created = DateTime.Today.Date,
+                MovieId = 1,
+
                 Title = "Film4",
                 Duration = 20
             },
             new Movie()
             {
-                ID = Guid.NewGuid(),
-                Created = DateTime.Today.Date,
+                MovieId = 1,
                 Title = "Film5",
                 Duration = 10
             },

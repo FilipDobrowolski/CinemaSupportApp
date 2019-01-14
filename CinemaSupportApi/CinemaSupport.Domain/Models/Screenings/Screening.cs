@@ -9,18 +9,17 @@ namespace CinemaSupport.Domain.Models
 {
     public class Screening
     {
-        public Guid ID { get; set; }
+        public int ScreeningId { get; set; }
 
         public bool Status { get; set; }
 
-        public DateTime ScreeningDate { get; set; }
+        public string ScreeningDate { get; set; }
 
-
-        public Guid ScreeningRoomID { get; set; }
+        public int ScreeningRoomId { get; set; }
 
         public ScreeningRoom ScreeningRoom { get; set; }
 
-        public Guid MovieID { get; set; }
+        public int MovieId { get; set; }
 
         public Movie Movie { get; set; }
 
