@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
+using CinemaSupport.Domain.Models.Tickets;
 
 namespace CinemaSupport.Data.Repositories
 {
@@ -16,6 +18,25 @@ namespace CinemaSupport.Data.Repositories
             _context = context;
         }
 
+        public IQueryable<Ticket> GetAllActorTickets(string actorName)
+        {
+            return _context.Tickets.Where(t => t.Actor == actorName);
+        }
+
+        public bool UpdateTicketValidation(int ticketId)
+        {
+            bool isTicketExist = _context.Tickets.Any(t => t.TicketId == ticketId);
+
+            if (isTicketExist)
+            {
+                var ticket = _context.Tickets.Single(t => t.TicketId == ticketId);
+                ticket.Validated = true;
+                _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
 
     }
 }

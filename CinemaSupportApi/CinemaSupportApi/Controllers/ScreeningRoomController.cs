@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace CinemaSupportApi.Controllers
 {
+    [RoutePrefix("screeningrooms")]
     public class ScreeningRoomController : ApiController
     {
         private readonly IScreeningRoomService _screeningRoomService;
@@ -16,6 +17,14 @@ namespace CinemaSupportApi.Controllers
         public ScreeningRoomController(IScreeningRoomService screeningRoomService)
         {
             _screeningRoomService = screeningRoomService;
+        }
+
+        [Route("all")]
+        public IHttpActionResult GetAllScreeningRoomsWithSeats(int cinemaId = 2)
+        {
+            cinemaId = 2;
+            var screeningRooms = _screeningRoomService.GetAllScreeningRoomsWithSeats(cinemaId);
+            return Ok(screeningRooms);
         }
     }
 }

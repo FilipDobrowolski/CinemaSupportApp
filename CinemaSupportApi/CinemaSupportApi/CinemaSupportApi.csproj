@@ -207,6 +207,7 @@
     <Compile Include="Controllers\ScreeningRoomController.cs" />
     <Compile Include="Controllers\SeatController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="ViewModels\TicketIdModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
