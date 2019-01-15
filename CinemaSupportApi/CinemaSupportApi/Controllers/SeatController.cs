@@ -9,6 +9,7 @@ using System.Web.Http;
 namespace CinemaSupportApi.Controllers
 {
     [RoutePrefix("seats")]
+    [Authorize]
     public class SeatController : ApiController
     {
         private readonly ISeatService _seatService;

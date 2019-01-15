@@ -10,7 +10,6 @@ using CinemaSupport.Domain.Models;
 
 namespace CinemaSupport.Data.Repositories
 {
-    [RoutePrefix("movies")]
     public class MovieRepository : IMovieRepository
     {
         private readonly CinemaSupportContext _context;

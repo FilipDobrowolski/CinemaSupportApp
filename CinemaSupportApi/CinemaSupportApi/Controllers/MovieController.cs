@@ -11,6 +11,7 @@ using CinemaSupportApi.Authentication;
 namespace CinemaSupportApi.Controllers
 {
     [RoutePrefix("movies")]
+    [Authorize]
     public class MovieController : ApiController
     {
         private readonly IMovieService _movieService;

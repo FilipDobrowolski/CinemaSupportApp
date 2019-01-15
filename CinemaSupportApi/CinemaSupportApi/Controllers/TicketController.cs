@@ -11,6 +11,7 @@ using CinemaSupport.Domain.Models.Tickets;
 namespace CinemaSupportApi.Controllers
 {
     [RoutePrefix("tickets")]
+    [Authorize]
     public class TicketController : ApiController
     {
         private readonly ITicketService _ticketService;

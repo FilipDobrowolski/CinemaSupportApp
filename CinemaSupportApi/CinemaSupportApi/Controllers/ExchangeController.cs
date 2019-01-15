@@ -15,6 +15,7 @@ namespace CinemaSupportApi.Controllers
     public class ExchangeController : ApiController
     {
         [Route("")]
+        [Authorize]
         public async Task<IHttpActionResult> GetAllCurrencies()
         {
             string responseBody = String.Empty;

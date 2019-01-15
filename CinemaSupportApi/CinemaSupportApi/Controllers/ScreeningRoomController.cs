@@ -10,6 +10,7 @@ using System.Web.Http;
 namespace CinemaSupportApi.Controllers
 {
     [RoutePrefix("screeningrooms")]
+    [Authorize]
     public class ScreeningRoomController : ApiController
     {
         private readonly IScreeningRoomService _screeningRoomService;

@@ -10,6 +10,7 @@ using CinemaSupport.Data.Interfaces.Repositories;
 namespace CinemaSupportApi.Controllers
 {
     [RoutePrefix("screenings")]
+    [Authorize]
     public class ScreeningController : ApiController
     {
         private readonly IScreeningService _screeningService;
