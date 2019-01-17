@@ -24,8 +24,9 @@ namespace CinemaSupportApi.Controllers
         [Route("getallbyactoruniquename")]  
         public IHttpActionResult GetAllActorTickets(string actorName)
         {
-            actorName = "Filip";
+
             var actorTickets = _ticketService.GetAllActorTickets(actorName);
+
             return Ok(actorTickets);
         }
 
@@ -48,9 +49,11 @@ namespace CinemaSupportApi.Controllers
         {
             var newTicket = new Ticket()
             {
-                TicketId = ticket.TicketId,
+                SeatId = ticket.TicketId,
                 TicketType = ticket.TicketType,
-                Actor = ticket.ActorName
+                Actor = ticket.ActorName,
+                ScreeningId = ticket.ScreeningId
+                
             };
             var isBought = _ticketService.AddTicket(newTicket);
             if(!isBought)
@@ -67,5 +70,6 @@ namespace CinemaSupportApi.Controllers
         public int TicketId { get; set; }
         public TicketType TicketType { get; set; }
         public string ActorName { get; set; }
+        public int ScreeningId { get; set; }
     }
 }

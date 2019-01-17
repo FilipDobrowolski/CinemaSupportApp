@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
   }
 
   checkLogin(url: string) {
-    if (this.authService.isLoggedIn) {
+    if (!!window.sessionStorage.getItem('IS_LOGED_IN') && window.sessionStorage.getItem('IS_LOGED_IN') == 'true') {
       return true;
     }
 

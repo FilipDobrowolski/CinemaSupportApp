@@ -1,9 +1,9 @@
 <h1 class="display-4 test">Moje Bilety</h1>
 <div *ngIf="ticketsObservable | async as tickets else empty">
-<nav aria-label="breadcrumb" *ngFor="let ticket of tickets" (click)="ticketNumber()">
+<nav aria-label="breadcrumb" *ngFor="let ticket of tickets" >
     <ol class="breadcrumb">
       <li class="breadcrumb-item active" aria-current="page">Numer biletu: {{ticket.ticketId}} | Cena: {{ticket.price}} | Numer sensu: {{ticket.screeningId}} | Skasowany {{ticket.validated ? 'Tak' : 'Nie'}}
-          <button *ngIf="!ticket.validated" class ="btn btn-secondary">Skasuj</button> | Typ biletu {{ticket.ticketType ? 'Ulgowy' : 'Normalny'}}
+          <button [hidden]="ticket.validated" class ="btn btn-secondary" (click)="validate(ticket.ticketId)">Skasuj</button> | Typ biletu {{ticket.ticketType ? 'Ulgowy' : 'Normalny'}}
 
       </li>
     </ol>

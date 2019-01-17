@@ -29,7 +29,7 @@ namespace CinemaSupport.Processing.Services.Tickets
         }
 
         public bool AddTicket(Ticket ticket)
-        {
+        {          
             return _ticketRepository.AddTicket(ticket);
         }
     }    

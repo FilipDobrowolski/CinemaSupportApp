@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -31,7 +32,7 @@ namespace CinemaSupport.Data.Repositories
             {
                 var ticket = _context.Tickets.Single(t => t.TicketId == ticketId);
                 ticket.Validated = true;
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return true;
             }
 
@@ -40,7 +41,16 @@ namespace CinemaSupport.Data.Repositories
 
         public bool AddTicket(Ticket ticket)
         {
-            throw new NotImplementedException();
+            var nextTicketIndex = _context.Tickets.ToList().Count;
+            ticket.TicketId = nextTicketIndex;
+            ticket.Price = ticket.TicketType == TicketType.Normal ? 20 : 15;
+            ticket.Purchased = true;
+            ticket.Validated = false;
+
+            _context.Tickets.Add(ticket);
+            _context.SaveChanges();
+
+            return true;
         }
     }
 }

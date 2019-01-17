@@ -1,6 +1,6 @@
 import { OnInit, Component, Input } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
@@ -17,7 +17,7 @@ export class BuyTicketModal implements OnInit {
     private isDisabled: boolean = true;
     @Input() screeningId: number;
     @Input() screeningRoomId: number;
-   
+    seatsSubscription: Subscription;
     constructor(public bsModalRef: BsModalRef,
         private http: HttpClient,) {}
     
@@ -28,6 +28,7 @@ export class BuyTicketModal implements OnInit {
     public getSeats() {
         let url = `${this.apiUrl}/seats/screeningseats?screeningId=${this.screeningId}&screeningroomid=${this.screeningRoomId}`;
         this.seatsObservable = this.http.get<Seat[]>(url);
+        this.seatsSubscription = this.seatsObservable.subscribe(res => console.log(res));
     }
 
     public ticketNumber(ticketnumber) {
@@ -51,7 +52,8 @@ export class BuyTicketModal implements OnInit {
     public submit() {
         let url = `${this.apiUrl}/tickets/buyticket`;
 
-        this.http.post(url, {ticketId: this.currentTicketNumber , ticketType: this.currentTicketType, actorName: "Filip" }).subscribe(res => console.log(res));
+        this.http.post(url, {ticketId: this.currentTicketNumber , screeningId: this.screeningId , ticketType: this.currentTicketType, actorName: window.sessionStorage.getItem('currentUser') }).subscribe(res => console.log(res));
+        this.bsModalRef.hide();
     }
 }
 

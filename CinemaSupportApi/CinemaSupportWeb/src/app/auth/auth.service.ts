@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { throwError } from 'rxjs';
 import { map, catchError, subscribeOn } from 'rxjs/operators';
 
+const TOKEN_KEY = 'AuthToken';
+const isLoggedIn = false;
 @Injectable({
   providedIn: 'root'
 })
@@ -28,8 +30,11 @@ export class AuthService {
     return this.http.post<any>(`api/accounts/login`, {user: username, password: password} )
     .pipe(map(user => {
         if (user && user.access_token) {
-          localStorage.setItem('currentUser', JSON.stringify(user.userName));
-          this.isLoggedIn = true;
+          window.sessionStorage.setItem('currentUser', user.userName);
+          window.sessionStorage.removeItem(TOKEN_KEY);
+          window.sessionStorage.setItem(TOKEN_KEY, user.access_token);
+          window.sessionStorage.setItem('IS_LOGED_IN', JSON.stringify(true));
+          //this.isLoggedIn = true;
         }
       }),
       catchError(this.handleError)
@@ -53,13 +58,13 @@ export class AuthService {
   }
 
   getAuthorizationToken() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    return currentUser.token;
+    const currentUser = window.sessionStorage.getItem(TOKEN_KEY);;
+    return currentUser;
   }
 
   logout() {
     localStorage.removeItem('currentUser');
-    this.isLoggedIn = false;
+    window.sessionStorage.setItem('IS_LOGED_IN', 'false')
   }
 
   private handleError(error: HttpErrorResponse) {

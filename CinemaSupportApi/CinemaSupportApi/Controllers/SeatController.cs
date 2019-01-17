@@ -22,8 +22,8 @@ namespace CinemaSupportApi.Controllers
         [Route("screeningseats")]
         public IHttpActionResult GetScreeningAvailableSeats(int screeningId, int screeningRoomId)
         {
-            screeningId = 7;
-            screeningRoomId = 5;
+            //screeningId = 7;
+            //screeningRoomId = 5;
             var seats = _seatService.GetAllScreeningAvailableSeats(screeningId, screeningRoomId);
 
             return Ok(seats);

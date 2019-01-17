@@ -11,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        if (this.authService.isLoggedIn) {
+        if (!!window.sessionStorage.getItem('IS_LOGED_IN') && window.sessionStorage.getItem('IS_LOGED_IN') == 'true') {
             const authToken = this.authService.getAuthorizationToken();
 
             req = req.clone({
